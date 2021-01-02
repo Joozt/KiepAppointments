@@ -84,29 +84,7 @@ $config['url_suffix'] = '';
 
 $config['language'] = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ?
     [
-        'ar' => 'arabic',
-        'bu' => 'bulgarian',
-        'zh' => 'chinese',
-        'da' => 'danish',
-        'nl' => 'dutch',
-        'en' => 'english',
-        'fi' => 'finnish',
-        'fr' => 'french',
-        'de' => 'german',
-        'el' => 'greek',
-        'he' => 'hebrew',
-        'hi' => 'hindi',
-        'hu' => 'hungarian',
-        'it' => 'italian',
-        'ja' => 'japanese',
-        'pl' => 'polish',
-        'pt' => 'portuguese',
-        'ro' => 'romanian',
-        'ru' => 'russian',
-        'sk' => 'slovak',
-        'es' => 'spanish',
-        'tr' => 'turkish',
-        'sv' => 'swedish'
+        'nl' => 'dutch'
     ][substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2)]
     : Config::LANGUAGE;
 
@@ -121,33 +99,7 @@ $config['language'] = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ?
 |
 */
 $config['available_languages'] = [
-    'arabic',
-    'bulgarian',
-    'catalan',
-    'chinese',
-    'czech',
-    'danish',
-    'dutch',
-    'english',
-    'finnish',
-    'french',
-    'german',
-    'greek',
-    'hebrew',
-    'hindi',
-    'hungarian',
-    'italian',
-    'japanese',
-    'marathi',
-    'luxembourgish',
-    'polish',
-    'portuguese',
-    'portuguese-br',
-    'romanian',
-    'russian',
-    'slovak',
-    'spanish',
-    'turkish'
+    'dutch'
 ];
 
 /*

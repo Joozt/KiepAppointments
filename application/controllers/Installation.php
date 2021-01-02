@@ -72,7 +72,7 @@ class Installation extends EA_Controller {
             }
 
             // Insert admin
-            $admin['timezone'] = 'UTC';
+            $admin['timezone'] = 'Europe/Amsterdam';
             $admin['settings']['username'] = $admin['username'];
             $admin['settings']['password'] = $admin['password'];
             $admin['settings']['notifications'] = TRUE;

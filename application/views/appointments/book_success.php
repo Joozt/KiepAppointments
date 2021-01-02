@@ -37,7 +37,7 @@
                     </strong>
                 </p>
 
-                <a href="<?= site_url() ?>" class="btn btn-success btn-large">
+                <a href="<?= site_url() ?>" class="btn btn-success btn-large" hidden>
                     <i class="fas fa-calendar-alt"></i>
                     <?= lang('go_to_booking_page') ?>
                 </a>
@@ -60,7 +60,7 @@
                 <?php endif ?>
             </div>
 
-            <div class="mt-2">
+            <div class="mt-2" hidden>
                 <small>
                     Powered by
                     <a href="https://easyappointments.org">Easy!Appointments</a>

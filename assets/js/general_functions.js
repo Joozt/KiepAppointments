@@ -371,9 +371,35 @@ window.GeneralFunctions = window.GeneralFunctions || {};
             return date;
         }
 
+        var months = [
+            'januari',
+            'februari',
+            'maart',
+            'april',
+            'mei',
+            'juni',
+            'juli',
+            'augustus',
+            'september',
+            'oktober',
+            'november',
+            'december'
+        ];
+
+        var days = [
+            'zondag',
+            'maandag',
+            'dinsdag',
+            'woensdag',
+            'donderdag',
+            'vrijdag',
+            'zaterdag'
+        ];
+
         switch (dateFormatSetting) {
             case 'DMY':
-                result = parsedDate.toString('dd/MM/yyyy' + hours);
+                result = `${days[parsedDate.getDay()]} ${parsedDate.getDate()} ${months[parsedDate.getMonth()]} ${parsedDate.getFullYear()} ${hours}`;
+                // result = parsedDate.toString('dd/MM/yyyy' + hours);
                 break;
             case 'MDY':
                 result = parsedDate.toString('MM/dd/yyyy' + hours);

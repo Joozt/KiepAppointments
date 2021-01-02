@@ -29,7 +29,7 @@ class Migration_Add_timezone_to_users extends CI_Migration {
                 'timezone' => [
                     'type' => 'VARCHAR',
                     'constraint' => '256',
-                    'default' => 'UTC',
+                    'default' => 'Europe/Amsterdam',
                     'after' => 'notes'
                 ]
             ];

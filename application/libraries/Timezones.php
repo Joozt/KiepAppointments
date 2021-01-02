@@ -23,7 +23,7 @@ class Timezones {
     /**
      * @var string
      */
-    protected $default = 'UTC';
+    protected $default = 'Europe/Amsterdam';
 
     /**
      * @var array

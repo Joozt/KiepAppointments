@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#35A768">
+    <meta name="theme-color" content="#283F4C">
 
     <title><?= lang('page_title') . ' ' . $company_name ?></title>
 
@@ -101,7 +101,7 @@
 
                     <div class="row frame-content">
                         <div class="col">
-                            <div class="form-group">
+                            <div class="form-group" hidden>
                                 <label for="select-service">
                                     <strong><?= lang('service') ?></strong>
                                 </label>
@@ -213,9 +213,9 @@
 
                         <div class="col-12 col-md-6">
                             <div id="select-time">
-                                <div class="form-group">
+                                <div class="form-group" hidden>
                                     <label for="select-timezone"><?= lang('timezone') ?></label>
-                                    <?= render_timezone_dropdown('id="select-timezone" class="form-control" value="UTC"'); ?>
+                                    <?= render_timezone_dropdown('id="select-timezone" class="form-control" value="Europe/Amsterdam"'); ?>
                                 </div>
 
                                 <div id="available-hours"></div>
@@ -279,19 +279,19 @@
                         </div>
 
                         <div class="col-12 col-md-6">
-                            <div class="form-group">
+                            <div class="form-group" hidden>
                                 <label for="address" class="control-label">
                                     <?= lang('address') ?>
                                 </label>
                                 <input type="text" id="address" class="form-control" maxlength="120"/>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" hidden>
                                 <label for="city" class="control-label">
                                     <?= lang('city') ?>
                                 </label>
                                 <input type="text" id="city" class="form-control" maxlength="120"/>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" hidden>
                                 <label for="zip-code" class="control-label">
                                     <?= lang('zip_code') ?>
                                 </label>
@@ -301,7 +301,7 @@
                                 <label for="notes" class="control-label">
                                     <?= lang('notes') ?>
                                 </label>
-                                <textarea id="notes" maxlength="500" class="form-control" rows="1"></textarea>
+                                <textarea id="notes" maxlength="500" class="form-control" rows="8"></textarea>
                             </div>
                         </div>
                     </div>
@@ -394,7 +394,7 @@
 
             <!-- FRAME FOOTER -->
 
-            <div id="frame-footer">
+            <div id="frame-footer" hidden>
                 <small>
                     <span class="footer-powered-by">
                         Powered By

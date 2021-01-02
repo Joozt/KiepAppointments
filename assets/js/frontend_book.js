@@ -65,7 +65,7 @@ window.FrontendBook = window.FrontendBook || {};
                         text: '#666666'
                     },
                     button: {
-                        background: '#429a82',
+                        background: '#283F4C',
                         text: '#ffffff'
                     }
                 },
@@ -532,19 +532,11 @@ window.FrontendBook = window.FrontendBook || {};
                 $('<p/>', {
                     'html': [
                         $('<span/>', {
-                            'text': EALang.service + ': ' + $('#select-service option:selected').text()
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
                             'text': EALang.provider + ': ' + $('#select-provider option:selected').text()
                         }),
                         $('<br/>'),
                         $('<span/>', {
-                            'text': EALang.start + ': ' + selectedDate + ' ' + $('.selected-hour').text()
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': EALang.timezone + ': ' + $('#select-timezone option:selected').text()
+                            'text': EALang.start + ': ' + selectedDate + ' om ' + $('.selected-hour').text()
                         }),
                         $('<br/>'),
                         $('<span/>', {

@@ -259,7 +259,7 @@
             .find('input, select, textarea')
             .val('')
             .prop('disabled', true);
-        $('.record-details #timezone').val('UTC');
+        $('.record-details #timezone').val('Europe/Amsterdam');
 
         $('#language').val('english');
 

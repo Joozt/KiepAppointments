@@ -60,9 +60,6 @@ gulp.task('package', (done) => {
     fs.copySync('composer.json', 'build/composer.json');
     fs.copySync('composer.lock', 'build/composer.lock');
     fs.copySync('config-sample.php', 'build/config-sample.php');
-    fs.copySync('CHANGELOG.md', 'build/CHANGELOG.md');
-    fs.copySync('README.md', 'build/README.md');
-    fs.copySync('LICENSE', 'build/LICENSE');
 
     execSync('cd build && composer install --no-interaction --no-dev --no-scripts --optimize-autoloader', function (err, stdout, stderr) {
         console.log(stdout);
@@ -71,6 +68,7 @@ gulp.task('package', (done) => {
 
     del.sync('**/.DS_Store');
 
+    fs.removeSync('build/composer.json');
     fs.removeSync('build/composer.lock');
 
     del.sync('**/.DS_Store');

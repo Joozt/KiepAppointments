@@ -398,7 +398,7 @@ window.GeneralFunctions = window.GeneralFunctions || {};
 
         switch (dateFormatSetting) {
             case 'DMY':
-                result = `${days[parsedDate.getDay()]} ${parsedDate.getDate()} ${months[parsedDate.getMonth()]} ${parsedDate.getFullYear()} ${hours}`;
+                result = days[parsedDate.getDay()] + ' ' + parsedDate.getDate() + ' ' + months[parsedDate.getMonth()] + ' ' +  parsedDate.getFullYear() + hours;
                 // result = parsedDate.toString('dd/MM/yyyy' + hours);
                 break;
             case 'MDY':

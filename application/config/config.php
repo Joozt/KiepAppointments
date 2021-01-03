@@ -82,11 +82,7 @@ $config['url_suffix'] = '';
 |
 */
 
-$config['language'] = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ?
-    [
-        'nl' => 'dutch'
-    ][substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2)]
-    : Config::LANGUAGE;
+$config['language'] = Config::LANGUAGE;
 
 /*
 |--------------------------------------------------------------------------

@@ -17,11 +17,15 @@ jobs:
         uses: actions/setup-node@v2
       - run: npm install
         
-      - name: Composer install
-        uses: ErickGomez98/composer@master
+      - name: PHP setup
+        uses: shivammathur/setup-php@v2
         with:
-          action: 'install'
-      
+          php-version: '7.4'
+          tools: composer
+          extensions: gd2
+
+      - name: Composer install
+        run: composer install
+  
       - name: Build
-        uses: actions/setup-node@v2
       - run: npm run build

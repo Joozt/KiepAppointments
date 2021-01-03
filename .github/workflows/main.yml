@@ -22,10 +22,15 @@ jobs:
         with:
           php-version: '7.4'
           tools: composer
-          extensions: gd2
 
       - name: Composer install
         run: composer install
   
       - name: Build
         run: npm run build
+
+      - name: Archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: KiepAppointments.zip
+          path: easyappointments-0.0.0.zip

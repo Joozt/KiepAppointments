@@ -67,4 +67,4 @@ class Config {
 cd docker
 docker-compose up
 ```
-In the host machine the server is accessible from `http://localhost:8000` and the database from `localhost:8001`.  
+On the host machine the server is accessible via http://localhost:8000, the database via `localhost:8001` and the mail server via http://localhost:8002/

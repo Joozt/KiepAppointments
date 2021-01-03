@@ -19,3 +19,8 @@ services:
         volumes:
             - ../:/var/www/html
             - ./server/php.ini:/usr/local/etc/php/conf.d/99-overrides.ini
+    mail:
+        image: mailhog/mailhog:v1.0.0
+        container_name: easyappointments-mail
+        ports:
+            - "8002:8025"

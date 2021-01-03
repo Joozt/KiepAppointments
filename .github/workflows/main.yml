@@ -18,10 +18,10 @@ jobs:
       - run: npm install
         
       - name: Composer install
-        uses: php-actions/composer@v5
+        uses: ErickGomez98/composer@master
         with:
-          php_version: 7.4
-
+          action: 'install'
+      
       - name: Build
         uses: actions/setup-node@v2
       - run: npm run build

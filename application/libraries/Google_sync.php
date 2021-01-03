@@ -149,7 +149,7 @@ class Google_sync {
         $event = new Google_Service_Calendar_Event();
         $event->setSummary(($service != NULL) ? $service['name'] : 'Unavailable');
         $event->setDescription($appointment['notes']);
-        $event->setLocation(isset($appointment['location']) ? $appointment['location'] : $settings['company_name']);
+        // $event->setLocation(isset($appointment['location']) ? $appointment['location'] : $settings['company_name']);
 
         $timezone = new DateTimeZone($provider['timezone']);
 
@@ -163,18 +163,21 @@ class Google_sync {
 
         $event->attendees = [];
 
-        $event_provider = new Google_Service_Calendar_EventAttendee();
-        $event_provider->setDisplayName($provider['first_name'] . ' '
-            . $provider['last_name']);
-        $event_provider->setEmail($provider['email']);
-        $event->attendees[] = $event_provider;
+        // $event_provider = new Google_Service_Calendar_EventAttendee();
+        // $event_provider->setDisplayName($provider['first_name'] . ' '
+        //     . $provider['last_name']);
+        // $event_provider->setEmail($provider['email']);
+        // $event->attendees[] = $event_provider;
 
         if ($customer != NULL)
         {
+            $customer_name = $customer['first_name'] . ' ' . $customer['last_name'];
             $event_customer = new Google_Service_Calendar_EventAttendee();
-            $event_customer->setDisplayName($customer['first_name'] . ' ' . $customer['last_name']);
+            $event_customer->setDisplayName($customer_name);
             $event_customer->setEmail($customer['email']);
             $event->attendees[] = $event_customer;
+
+            $event->setSummary(($service != NULL) ? $service['name'] . ' ' . $customer_name : $customer_name);
         }
 
         // Add the new event to the google calendar.

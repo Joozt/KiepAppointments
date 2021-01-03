@@ -101,7 +101,7 @@ class Email {
         switch ($settings['date_format'])
         {
             case 'DMY':
-                $date_format = 'd/m/Y';
+                $date_format = 'd-m-Y';
                 break;
             case 'MDY':
                 $date_format = 'm/d/Y';
@@ -159,7 +159,11 @@ class Email {
         $mailer->AddAddress($recipient_email->get());
         $mailer->Subject = $title->get();
         $mailer->Body = $html;
-        $mailer->addStringAttachment($ics_stream->get(), 'invitation.ics');
+
+        if (!empty($ics_stream->get())) 
+        {
+            $mailer->addStringAttachment($ics_stream->get(), 'invitation.ics');
+        }
 
         if ( ! $mailer->Send())
         {

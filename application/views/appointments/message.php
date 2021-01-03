@@ -47,7 +47,7 @@
                 <?php endif ?>
             </div>
 
-            <div class="mt-2">
+            <div class="mt-2" hidden>
                 <small>
                     Powered by
                     <a href="https://easyappointments.org">Easy!Appointments</a>

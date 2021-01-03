@@ -67,21 +67,21 @@ class Notifications {
             {
                 $customer_title = new Text(lang('appointment_changes_saved'));
                 $customer_message = new Text('');
-                $provider_title = new Text(lang('appointment_details_changed'));
+                $provider_title = new Text(lang('appointment_changes_saved') . ' ' . $customer['first_name'] . ' ' . $customer['last_name']);
                 $provider_message = new Text('');
             }
             else
             {
                 $customer_title = new Text(lang('appointment_booked'));
                 $customer_message = new Text(lang('thank_you_for_appointment'));
-                $provider_title = new Text(lang('appointment_added_to_your_plan'));
+                $provider_title = new Text(lang('appointment_booked') . ' ' . $customer['first_name'] . ' ' . $customer['last_name']);
                 $provider_message = new Text(lang('appointment_link_description'));
             }
 
             $customer_link = new Url(site_url('appointments/index/' . $appointment['hash']));
             $provider_link = new Url(site_url('backend/index/' . $appointment['hash']));
 
-            $ics_stream = $this->CI->ics_file->get_stream($appointment, $service, $provider, $customer);
+            
 
             $send_customer = filter_var(
                 $this->CI->settings_model->get_setting('customer_notifications'),
@@ -89,10 +89,29 @@ class Notifications {
 
             if ($send_customer === TRUE)
             {
+                $settings_customer = [
+                    'company_name' => explode(" - ", $settings['company_name'])[1],
+                    'company_link' => $settings['company_link'],
+                    'company_email' => $settings['company_email'],
+                    'date_format' => $settings['date_format'],
+                    'time_format' => $settings['time_format']
+                ];
+
+                $ics_title = new Text($customer_title->get() . ' ' . explode(" - ", $settings['company_name'])[1]);
+                $ics_stream = $this->CI->ics_file->get_stream($ics_title, $appointment, $service, $provider, $customer, $settings_customer);
+
                 $email->send_appointment_details($appointment, $provider,
-                    $service, $customer, $settings, $customer_title,
+                    $service, $customer, $settings_customer, $customer_title,
                     $customer_message, $customer_link, new Email($customer['email']), new Text($ics_stream), $customer['timezone']);
             }
+
+            $settings_provider = [
+                'company_name' => explode(" - ", $settings['company_name'])[0],
+                'company_link' => $settings['company_link'],
+                'company_email' => $settings['company_email'],
+                'date_format' => $settings['date_format'],
+                'time_format' => $settings['time_format']
+            ];
 
             $send_provider = filter_var(
                 $this->CI->providers_model->get_setting('notifications', $provider['id']),
@@ -101,8 +120,8 @@ class Notifications {
             if ($send_provider === TRUE)
             {
                 $email->send_appointment_details($appointment, $provider,
-                    $service, $customer, $settings, $provider_title,
-                    $provider_message, $provider_link, new Email($provider['email']), new Text($ics_stream), $provider['timezone']);
+                    $service, $customer, $settings_provider, $provider_title,
+                    $provider_message, $provider_link, new Email($provider['email']), NULL, $provider['timezone']);
             }
 
             // Notify admins
@@ -116,8 +135,8 @@ class Notifications {
                 }
 
                 $email->send_appointment_details($appointment, $provider,
-                    $service, $customer, $settings, $provider_title,
-                    $provider_message, $provider_link, new Email($admin['email']), new Text($ics_stream), $admin['timezone']);
+                    $service, $customer, $settings_provider, $provider_title,
+                    $provider_message, $provider_link, new Email($admin['email']), new Text(''), $admin['timezone']);
             }
 
             // Notify secretaries
@@ -136,8 +155,8 @@ class Notifications {
                 }
 
                 $email->send_appointment_details($appointment, $provider,
-                    $service, $customer, $settings, $provider_title,
-                    $provider_message, $provider_link, new Email($secretary['email']), new Text($ics_stream), $secretary['timezone']);
+                    $service, $customer, $settings_provider, $provider_title,
+                    $provider_message, $provider_link, new Email($secretary['email']), new Text(''), $secretary['timezone']);
             }
         }
         catch (Exception $exception)
@@ -166,10 +185,18 @@ class Notifications {
             $send_provider = filter_var($this->CI->providers_model->get_setting('notifications', $provider['id']),
                 FILTER_VALIDATE_BOOLEAN);
 
+            $settings_provider = [
+                'company_name' => explode(" - ", $settings['company_name'])[0],
+                'company_link' => $settings['company_link'],
+                'company_email' => $settings['company_email'],
+                'date_format' => $settings['date_format'],
+                'time_format' => $settings['time_format']
+            ];
+
             if ($send_provider === TRUE)
             {
                 $email->send_delete_appointment($appointment, $provider,
-                    $service, $customer, $settings, new Email($provider['email']),
+                    $service, $customer, $settings_provider, new Email($provider['email']),
                     new Text($this->CI->input->post('cancel_reason')));
             }
 
@@ -179,8 +206,15 @@ class Notifications {
 
             if ($send_customer === TRUE)
             {
+                $settings_customer = [
+                    'company_name' => explode(" - ", $settings['company_name'])[1],
+                    'company_link' => $settings['company_link'],
+                    'company_email' => $settings['company_email'],
+                    'date_format' => $settings['date_format'],
+                    'time_format' => $settings['time_format']
+                ];
                 $email->send_delete_appointment($appointment, $provider,
-                    $service, $customer, $settings, new Email($customer['email']),
+                    $service, $customer, $settings_customer, new Email($customer['email']),
                     new Text($this->CI->input->post('cancel_reason')));
             }
 
@@ -195,7 +229,7 @@ class Notifications {
                 }
 
                 $email->send_delete_appointment($appointment, $provider,
-                    $service, $customer, $settings, new Email($admin['email']),
+                    $service, $customer, $settings_provider, new Email($admin['email']),
                     new Text($this->CI->input->post('cancel_reason')));
             }
 
@@ -215,7 +249,7 @@ class Notifications {
                 }
 
                 $email->send_delete_appointment($appointment, $provider,
-                    $service, $customer, $settings, new Email($secretary['email']),
+                    $service, $customer, $settings_provider, new Email($secretary['email']),
                     new Text($this->CI->input->post('cancel_reason')));
             }
         }

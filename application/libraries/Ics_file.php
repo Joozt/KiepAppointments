@@ -44,7 +44,7 @@ class Ics_file {
      * @throws CalendarEventException
      * @throws Exception
      */
-    public function get_stream($appointment, $service, $provider, $customer)
+    public function get_stream($title, $appointment, $service, $provider, $customer, $settings)
     {
         $appointment_timezone =  new DateTimeZone($provider['timezone']);
 
@@ -58,7 +58,7 @@ class Ics_file {
             ->setStart($appointment_start)
             ->setEnd($appointment_end)
             ->setStatus('CONFIRMED')
-            ->setSummary($service['name'])
+            ->setSummary($title->get())
             ->setUid($appointment['id']);
 
         if (!empty($service['location']))
@@ -66,34 +66,13 @@ class Ics_file {
             $location = new Location();
             $location->setName((string)$service['location']);
             $event->addLocation($location);
+        } 
+        elseif (!empty($provider['first_name']))
+        {
+            $location = new Location();
+            $location->setName($provider['first_name'] . ' ' . $provider['last_name']);
+            $event->addLocation($location);
         }
-
-        $description = [
-            '',
-            lang('provider'),
-            '',
-            lang('name') . ': ' . $provider['first_name'] . ' ' . $provider['last_name'],
-            lang('email') .': ' . $provider['email'],
-            lang('phone_number') . ': ' . $provider['phone_number'],
-            lang('address') . ': ' . $provider['address'],
-            lang('city') . ': ' . $provider['city'],
-            lang('zip_code') . ': ' . $provider['zip_code'],
-            '',
-            lang('customer'),
-            '',
-            lang('name') . ': ' . $customer['first_name'] . ' ' . $customer['last_name'],
-            lang('email') .': ' . $customer['email'],
-            lang('phone_number') . ': ' . $customer['phone_number'],
-            lang('address') . ': ' . $customer['address'],
-            lang('city') . ': ' . $customer['city'],
-            lang('zip_code') . ': ' . $customer['zip_code'],
-            '',
-            lang('notes'),
-            '',
-            $appointment['notes'],
-        ];
-
-        $event->setDescription(implode("\\n", $description));
 
         $attendee = new Attendee(new Formatter());
 
@@ -128,26 +107,12 @@ class Ics_file {
         $alarm->addAttendee($attendee);
         $event->addAlarm($alarm);
 
-        $attendee = new Attendee(new Formatter());
-
-        if (isset($provider['email']) && ! empty($provider['email']))
-        {
-            $attendee->setValue($provider['email']);
-        }
-
-        $attendee->setName($provider['first_name'] . ' ' . $provider['last_name']);
-        $attendee->setCalendarUserType('INDIVIDUAL')
-            ->setRole('REQ-PARTICIPANT')
-            ->setParticipationStatus('ACCEPTED')
-            ->setRsvp('FALSE');
-        $event->addAttendee($attendee);
-
         // Set the organizer.
         $organizer = new Organizer(new Formatter());
 
         $organizer
-            ->setValue($provider['email'])
-            ->setName($provider['first_name'] . ' ' . $provider['last_name']);
+            ->setValue($settings['company_email'])
+            ->setName($settings['company_name']);
 
         $event->setOrganizer($organizer);
 

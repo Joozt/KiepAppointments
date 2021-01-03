@@ -11,7 +11,6 @@
     </div>
 
     <div id="content" style="padding: 10px 15px;">
-        <h2><?= $email_title ?></h2>
         <p><?= $email_message ?></p>
 
         <h2><?= lang('appointment_details_title') ?></h2>

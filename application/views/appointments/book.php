@@ -183,7 +183,13 @@
                                 <select id="select-provider" class="form-control"></select>
                             </div>
 
-                            <div id="service-description"></div>
+                            <div id="service-description" hidden></div>
+
+                            <?php if ($display_terms_and_conditions === '1'): ?>
+                                <div class="modal-body">
+                                    <p><?= $terms_and_conditions_content ?></p>
+                                </div>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>
@@ -307,20 +313,6 @@
                     </div>
                 </div>
 
-                <?php if ($display_terms_and_conditions): ?>
-                    <div class="form-check mb-3">
-                        <input type="checkbox" class="required form-check-input" id="accept-to-terms-and-conditions">
-                        <label class="form-check-label" for="accept-to-terms-and-conditions">
-                            <?= strtr(lang('read_and_agree_to_terms_and_conditions'),
-                                [
-                                    '{$link}' => '<a href="#" data-toggle="modal" data-target="#terms-and-conditions-modal">',
-                                    '{/$link}' => '</a>'
-                                ])
-                            ?>
-                        </label>
-                    </div>
-                <?php endif ?>
-
                 <?php if ($display_privacy_policy): ?>
                     <div class="form-check mb-3">
                         <input type="checkbox" class="required form-check-input" id="accept-to-privacy-policy">
@@ -421,10 +413,6 @@
 
 <?php if ($display_cookie_notice === '1'): ?>
     <?php require 'cookie_notice_modal.php' ?>
-<?php endif ?>
-
-<?php if ($display_terms_and_conditions === '1'): ?>
-    <?php require 'terms_and_conditions_modal.php' ?>
 <?php endif ?>
 
 <?php if ($display_privacy_policy === '1'): ?>
